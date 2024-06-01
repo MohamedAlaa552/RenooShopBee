@@ -187,7 +187,7 @@ namespace RenoshopBee.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.ApplicationUser", b =>
@@ -308,7 +308,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("creditCards");
+                    b.ToTable("creditCards", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.Order", b =>
@@ -345,7 +345,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.OrderItem", b =>
@@ -382,7 +382,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("orderItems");
+                    b.ToTable("orderItems", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.Product", b =>
@@ -436,7 +436,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.ProductReview", b =>
@@ -470,7 +470,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ProductReviews");
+                    b.ToTable("ProductReviews", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.ProductSizes", b =>
@@ -491,7 +491,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("productSizes");
+                    b.ToTable("productSizes", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.Wishlist", b =>
@@ -510,7 +510,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("wishlists");
+                    b.ToTable("wishlists", (string)null);
                 });
 
             modelBuilder.Entity("RenoshopBee.Models.WishlistItem", b =>
@@ -533,7 +533,7 @@ namespace RenoshopBee.Migrations
 
                     b.HasIndex("WishlistId");
 
-                    b.ToTable("wishlistItem");
+                    b.ToTable("wishlistItem", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

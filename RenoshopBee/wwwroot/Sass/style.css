@@ -269,9 +269,7 @@ section.dashboard .products-content .pages .next-btn:hover, section.dashboard .s
 }
 
 .login-body .pics, .sign-up-body .pics {
-    max-height: 53rem;
     position: relative;
-    width: 35%;
     overflow: hidden;
 }
 
@@ -318,7 +316,7 @@ section.dashboard .products-content .pages .next-btn:hover, section.dashboard .s
 }
 
 .login-body .pics img, .sign-up-body .pics img {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     -o-object-fit: cover;
     object-fit: cover;
