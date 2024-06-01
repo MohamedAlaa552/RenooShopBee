@@ -1,0 +1,23 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+    Layout = "~/Views/Shared/_LayoutResource.cshtml";
+}
+<div class="registerConfirmation">
+    <div class="alert alert-success d-flex justify-content-start flex-column mb-0 pt-5 min-vh-100 border-0 rounded-0"
+         role="alert">
+        <h4 class="alert-heading">
+            Thanks for Joining us
+            <i class="fas fa-check-circle"></i>
+        </h4>
+        <p>
+            Aww yeah, you successfully Register in our store . Don't forget to Activate your account from the link
+            that
+            we have just sent you.
+        </p>
+        <p>Enjoy shopping!</p>
+        <a asp-page="./Login">Go To SignIn</a>
+    </div>
+</div>
+

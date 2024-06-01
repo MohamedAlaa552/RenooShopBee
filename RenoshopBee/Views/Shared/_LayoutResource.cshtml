@@ -1,0 +1,30 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>RenoshopBee | @ViewData["Title"]</title>
+    <link rel="icon" href="~/imgs/reno.png">
+    <link rel="stylesheet" href="~/Sass/all.min.css">
+    <link rel="stylesheet" href="~/Sass/scss/bootstrap.css">
+    <link rel="stylesheet" href="~/Sass/style.css">
+</head>
+<body>
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+    <script src="~/js/all.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/Sign-up.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

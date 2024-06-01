@@ -1,0 +1,240 @@
+﻿@model RenoshopBee.ViewModels.ProductDetailsVM
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="product-details container">
+    <!--breadcrumb componant-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb py-5">
+            <li class="breadcrumb-item"><a asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">@Html.DisplayFor(x => x.product.Category)</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product</li>
+        </ol>
+    </nav>
+    <!--breadcrumb componant-->
+    <div class="product-view row my-5">
+        <div class="product-pic col-lg-5">
+            <div class="img d-flex justify-content-center">
+                <img class="img-fluid" src="@Model.product.Img_url" alt="">
+            </div>
+        </div>
+        <div class="product-description col-lg-7 my-5 my-lg-0">
+            
+            <h3 id="productName"> @Html.DisplayFor(m => m.product.Name)</h3>
+            <div class="product-info d-flex align-items-center">
+                <div class="product-price mb-2 d-inline-block fs-2 pt-2">@Html.DisplayFor(m => m.product.Price)</div>
+                <div class="product-rating d-inline-block fs-5 ps-3">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= Model.totalRate)
+                        {
+                            <i class="fas fas fa-star filled"></i>
+                        }
+                        else
+                        {
+                            <i class="fas far fa-star unfilled"></i>
+                        }
+
+                    }
+                </div>
+            </div>
+
+            <div class="description lh-lg my-3 pb-5 border-bottom">
+                @Html.DisplayFor(m => m.product.Description)
+            </div>
+             <div class="product-options row mx-1 gap-4">
+                <!--<div class="select-size px-0 col-md-5 border rounded">
+                    <div class="select-header p-3 d-flex justify-content-between align-items-center">
+                        <span class="inner-header">Select size</span>
+                        <i class="chevronDown fas fa-chevron-down"></i>
+                    </div>
+                    <div class="selections-body bg-light d-none">
+                        <div class="size p-3 border-bottom">Small</div>
+                        <div class="size p-3 border-bottom">Medium</div>
+                        <div class="size p-3 border-bottom">Large</div>
+                        <div class="size p-3 border-bottom">X Large</div>
+                        <div class="size p-3">XX Large</div>
+                    </div>
+                </div>
+                <div class="select-color px-0 col-md-5 border rounded">
+                    <div class="select-header p-3 d-flex justify-content-between align-items-center">
+                        <span class="inner-header">Select color</span>
+                        <i class="chevronDown fas fa-chevron-down"></i>
+                    </div>
+                    <div class="selections-body bg-light d-none">
+                        <div class="color p-3 border-bottom">
+                            black
+                        </div>
+                        <div class="color p-3 border-bottom">
+                            white
+                        </div>
+                        <div class="color p-3 border-bottom">
+                            gray
+                        </div>
+                        <div class="color p-3">
+                            orange
+                        </div>
+                    </div>
+                </div>
+                <div class="Product-amount col-md-5 border row p-0 align-items-center ms-0">
+                    <div class="minus col-3 p-0 text-center py-2 border-end fs-5 fw-bold">-</div>
+                    <div class="amount col-6 p-0 text-center py-2 fs-6">1</div>
+                    <div class="positive col-3 p-0 text-center py-2 border-start fs-5 fw-bold">+</div>
+                 </div>-->
+                <div class="ordering-options p-0 d-flex align-items-center">
+                    <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.product.ID">
+                    <button id="addToCartBtn"
+                            class="btn btn-primary text-white text-uppercase rounded-0 px-2 py-2 mb-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        add to cart
+                    </button>
+                    </form>
+                        <form method="post">
+                        <button asp-controller="Wishlist" asp-action="AddToWishlist" asp-route-productId="@Model.product.ID" type="submit"
+                        class="add-to-wishlist btn btn-primary text-white text-uppercase rounded-0 px-2 py-2 ms-2 mb-2 add-to-wishlist">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="description-comment my-5">
+        <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-0 border-0 bg-light pe-4" id="Description-tab"
+                        data-bs-toggle="tab" data-bs-target="#Description-tab-pane" type="button" role="tab"
+                        aria-controls="Description-tab-pane" aria-selected="true">
+                    Description
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-0 border-0 pe-4" id="Reviews-tab" data-bs-toggle="tab"
+                        data-bs-target="#Reviews-tab-pane" type="button" role="tab" aria-controls="Reviews-tab-pane"
+                        aria-selected="false">
+                    Reviews(<span id="revNumber">@((Model.usersReviews!=null)?Model.usersReviews.Count():0)</span>)
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active  py-3 px-4  bg-light" id="Description-tab-pane" role="tabpanel"
+                 aria-labelledby="Description-tab" tabindex="0">
+                @Model.product.Description
+            </div>
+            <div class="tab-pane fade bg-light py-3 px-4" id="Reviews-tab-pane" role="tabpanel"
+                 aria-labelledby="Reviews-tab" tabindex="0">
+                 <div id="PartRev">
+                    <partial name="_Rev" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="related-products my-5">
+        <div class="header  d-flex justify-content-between">
+            <h3>Related Products</h3>
+            <div class="navigation d-flex align-items-center">
+                <div class="prev-product bg-light px-3 py-1 mx-1">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="next-product bg-primary text-white px-3 py-1 mx-1">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+        <div class="products-grid row py-5">
+            @foreach (var item in Model.products)
+            {
+                <a style="text-decoration:none;color:black;" asp-action="Details" asp-route-id=@item.ID class="product-card col-md-6 col-lg-3">
+                    <div class="product-img">
+                        <img class="img-fluid" src="@item.Img_url" alt="product">
+                        <div class="product-buttons">
+                            <form method="post">
+                                <button asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ID" type="submit" class="add-to-cart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </form>
+                            <form method="post" id="wishlistbtn">
+                                <button asp-controller="Wishlist" asp-action="AddToWishlist" asp-route-productId="@item.ID" type="submit" class="add-to-wishlist">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="product-name text-capitalize pt-2">
+                        @item.Name
+
+                    </div>
+                    <div class="product-price mb-2">@item.Price</div>
+                </a>
+            }
+
+        </div>
+    </div>
+</section>
+@section Scripts{
+<script>
+    console.log("xasd")
+    // function EditReview(id) {
+    //     console.log("GG")
+    //     document.querySelector("review-text-" + id).style.display = none;
+    //     }
+        document.querySelector(".editBtn").forEach(btn => btn.addEventListener("click", function () {
+            console.log("Yes")
+            var divReview = document.getElementById("divReview");
+            var reviewTextArea = document.getElementById("reviewTextArea");
+
+            if (divReview.style.display === "none") {
+                // If the textarea is visible, switch to the div
+                divReview.style.display = "block";
+                reviewTextArea.style.display = "none";
+                divReview.textContent = reviewTextArea.value;
+            } else {
+                // If the div is visible, switch to the textarea
+                divReview.style.display = "none";
+                reviewTextArea.style.display = "block";
+                reviewTextArea.value = divReview.textContent;
+            }
+        }));
+        }        document.querySelector('.submitRev').addEventListener('click', function () {
+            // Get values from input fields
+             
+        });
+
+    }
+        const stars = document.querySelectorAll('.star');
+        let selectedStar = null;
+        console.log(selectedStar)
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                selectedStar = null
+                const starValue = star.getAttribute('data-star');
+                for (let i = 0; i < starValue; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+
+            star.addEventListener('mouseout', () => {
+                if (selectedStar === null) {
+                    console.log(`Star value is:${selectedStar}`);
+                    stars.forEach(s => s.classList.remove('selected'));
+                }
+            });
+            star.addEventListener('click', () => {
+                const starValue = star.getAttribute('data-star');
+                console.log(`Star value is:${selectedStar}`);
+                if (selectedStar === starValue) {
+                    console.log(`Star value is:${selectedStar}`);
+                    selectedStar = null;
+                    star.classList.remove('selected');
+                } else {
+                    selectedStar = starValue;
+                    console.log(`Star value is:${selectedStar}`);
+                }
+            });
+        });
+</script>
+}
